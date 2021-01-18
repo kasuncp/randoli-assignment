@@ -16,34 +16,35 @@ public class Event {
     @Column(columnDefinition = "CHAR(36)")
     private UUID eventId;
 
-    @Column
     private String transId;
 
-    @Column
     private String transTms;
 
-    @Column
     private String rcNum;
 
-    @Column
     private String clientId;
 
-    @Column
     private long eventCnt;
 
-    @Column
     private String locationCd;
 
-    @Column
     private String locationId1;
 
-    @Column
     private String locationId2;
 
-    @Column
     private String addrNbr;
 
-    public Event(String transId, String transTms, String rcNum, String clientId, long eventCnt, String locationCd, String locationId1, String locationId2, String addrNbr) {
+    public Event(
+        String transId,
+        String transTms,
+        String rcNum,
+        String clientId,
+        long eventCnt,
+        String locationCd,
+        String locationId1,
+        String locationId2,
+        String addrNbr
+    ) {
         this.transId = transId;
         this.transTms = transTms;
         this.rcNum = rcNum;
