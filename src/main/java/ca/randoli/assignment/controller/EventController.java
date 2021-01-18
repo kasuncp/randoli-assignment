@@ -1,4 +1,4 @@
-package ca.randoli.assignment.route;
+package ca.randoli.assignment.controller;
 
 import ca.randoli.assignment.service.EventService;
 import org.apache.camel.builder.RouteBuilder;
@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EventRoute extends RouteBuilder {
+public class EventController extends RouteBuilder {
 
     @Autowired
     private Environment environment;
@@ -29,10 +29,8 @@ public class EventRoute extends RouteBuilder {
                 .produces(MediaType.APPLICATION_JSON_VALUE)
                 .get("/").description("List all events")
                 .route()
-                .to("direct:findAllEvents")
+                .bean(EventService.class, "getEventNames")
                 .endRest();
 
-        from("direct:findAllEvents")
-                .bean(EventService.class, "getEventNames");
     }
 }
