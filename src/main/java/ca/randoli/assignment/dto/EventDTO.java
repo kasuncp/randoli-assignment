@@ -1,51 +1,29 @@
-package ca.randoli.assignment.model;
+package ca.randoli.assignment.dto;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
-import javax.persistence.*;
-import java.util.UUID;
-
-@Entity
-@Table(name = "events")
-public class Event {
-
-    @Id
-    @GeneratedValue(generator = "uuid4")
-    @GenericGenerator(name = "UUID", strategy = "uuid4")
-    @Type(type = "org.hibernate.type.UUIDCharType")
-    @Column(columnDefinition = "CHAR(36)")
-    private UUID eventId;
+public class EventDTO {
 
     private String transId;
-
     private String transTms;
-
     private String rcNum;
-
     private String clientId;
-
     private long eventCnt;
-
     private String locationCd;
-
     private String locationId1;
-
     private String locationId2;
-
     private String addrNbr;
 
-    public Event() { }
+    public EventDTO() {}
 
-    public Event(
-        String transId,
-        String transTms,
-        String rcNum,
-        String clientId,
-        long eventCnt,
-        String locationCd,
-        String locationId1,
-        String locationId2,
-        String addrNbr
+    public EventDTO(
+            String transId,
+            String transTms,
+            String rcNum,
+            String clientId,
+            long eventCnt,
+            String locationCd,
+            String locationId1,
+            String locationId2,
+            String addrNbr
     ) {
         this.transId = transId;
         this.transTms = transTms;
@@ -56,10 +34,6 @@ public class Event {
         this.locationId1 = locationId1;
         this.locationId2 = locationId2;
         this.addrNbr = addrNbr;
-    }
-
-    public UUID getEventId() {
-        return eventId;
     }
 
     public String getTransId() {
@@ -133,5 +107,19 @@ public class Event {
     public void setAddrNbr(String addrNbr) {
         this.addrNbr = addrNbr;
     }
-}
 
+    @Override
+    public String toString() {
+        return "EventDTO { " +
+                "transId='" + transId + '\'' +
+                ", transTms='" + transTms + '\'' +
+                ", rcNum='" + rcNum + '\'' +
+                ", clientId='" + clientId + '\'' +
+                ", eventCnt=" + eventCnt +
+                ", locationCd='" + locationCd + '\'' +
+                ", locationId1='" + locationId1 + '\'' +
+                ", locationId2='" + locationId2 + '\'' +
+                ", addrNbr='" + addrNbr + '\'' +
+                " }";
+    }
+}

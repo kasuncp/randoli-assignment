@@ -21,7 +21,7 @@ kind: Deployment
 metadata:
   name: postgres
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: postgres
@@ -31,7 +31,7 @@ spec:
         app: postgres
     spec:
       containers:
-        - name: randoli-event-api
+        - name: postgres
           image: postgres:alpine
           env:
             - name: POSTGRES_DB
