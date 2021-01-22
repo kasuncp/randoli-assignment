@@ -1,8 +1,11 @@
 package ca.randoli.assignment.controller;
 
-import ca.randoli.assignment.dto.EventDTO;
 import ca.randoli.assignment.service.EventService;
 import ca.randoli.assignment.service.RecordService;
+import ca.randoli.assignment.util.EventAggregationStrategy;
+import org.apache.camel.Exchange;
+import org.apache.camel.Expression;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jackson.JacksonDataFormat;
 import org.apache.camel.model.rest.RestBindingMode;
@@ -12,6 +15,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 
 @Component
@@ -28,8 +32,19 @@ public class EventController extends RouteBuilder {
     private JacksonDataFormat eventDtoDataFormat;
 
     @Autowired
-    @Qualifier("recordDtoDataformat")
-    private JacksonDataFormat recordDtoDataformat;
+    @Qualifier("eventResponseDataFormat")
+    private JacksonDataFormat eventResponseDataFormat;
+
+    @Autowired
+    @Qualifier("recordDtoDataFormat")
+    private JacksonDataFormat recordDtoDataFormat;
+
+    @Autowired
+    @Qualifier("eventsListDataFormat")
+    private JacksonDataFormat eventsListDataFormat;
+
+    @Autowired
+    private EventAggregationStrategy eventAggregationStrategy;
 
     @Override
     public void configure() throws Exception {
@@ -87,15 +102,22 @@ public class EventController extends RouteBuilder {
                 // POST /api/records
                 .post("/").description("Create events from records")
                 .route()
-                .marshal().json()
+                .setHeader("correlation-id", constant(UUID.randomUUID()))
+                .to("direct:processEvents")
+                .setBody(constant("{ \"message\": \"Record will be processed in the background\" }"))
+                .endRest();
+
+        from("direct:processEvents")
                 .split().jsonpath("$.records").streaming()
                 .executorService(threadPool)
                 .marshal().json()
-                .unmarshal(recordDtoDataformat)
+                .unmarshal(recordDtoDataFormat)
                 .split().method(RecordService.class, "extractEventDtos")
                 .executorService(threadPool)
-                .bean(EventService.class, "addEvent(${body})")
-                .endRest();
+                .bean(EventService.class, "convertToEvent(${body})")
+                .aggregate(header("correlation-id"), eventAggregationStrategy).completionSize(9)
+                .bean(EventService.class, "addEvents(${body})");
+
 
     }
 }

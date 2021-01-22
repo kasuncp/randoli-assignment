@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,9 +29,16 @@ public class EventService {
     }
 
     public Event addEvent(EventDTO eventDTO) {
-        LOGGER.info(eventDTO.toString());
         Event event = updateEventFromDto(eventDTO, new Event());
         return this.eventRepository.save(event);
+    }
+
+    public List<Event> addEvents(List<Event> eventList) {
+        return this.eventRepository.saveAll(eventList);
+    }
+
+    public Event convertToEvent(EventDTO eventDTO) {
+        return updateEventFromDto(eventDTO, new Event());
     }
 
     public Event removeEvent(String eventId) {
