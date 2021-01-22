@@ -1,8 +1,6 @@
 package ca.randoli.assignment.util;
 
 import ca.randoli.assignment.model.Event;
-import ca.randoli.assignment.response.EventResponse;
-import ca.randoli.assignment.response.EventsListResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.AggregationStrategy;
 import org.apache.camel.Exchange;
