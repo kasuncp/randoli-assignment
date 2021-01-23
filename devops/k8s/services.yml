@@ -7,9 +7,9 @@ spec:
     app: event-api
   ports:
     - name: http
-      port: 8080
-      nodePort: 30080
-  type: NodePort
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
 ---
 apiVersion: v1
 kind: Service
@@ -21,5 +21,4 @@ spec:
   ports:
     - name: dbport
       port: 5432
-      nodePort: 30010
-  type: NodePort
+  type: LoadBalancer
