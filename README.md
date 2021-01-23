@@ -16,8 +16,8 @@ PostgreSQL must be running in the local environment.
 3. Run `mvn clean install` from the project root directory to package the bundle.
 4. Run `mvn spring-boot:run` to run the application.
 
-#### API URL: `http://localhost:8080/api`
-#### Swagger URL: `http://localhost:8080/swagger-ui`
+- API URL: `http://localhost:8080/api`
+- Swagger URL: `http://localhost:8080/swagger-ui`
 
 ## Kubernetes deployment
 
@@ -32,8 +32,8 @@ A Kubernetes cluster must be setup and kubectl must be configured with it.
 2. Change directory to `devops`.
 3. Run `deploy.sh` script.
 
-#### API URL: `http://<kubernetes service external IP>/api`
-#### Swagger URL: `http://<kubernetes service external IP>/swagger-ui`
+- API URL: `http://<kubernetes service external IP>/api`
+- Swagger URL: `http://<kubernetes service external IP>/swagger-ui`
 
 ## 3Scale API
 
