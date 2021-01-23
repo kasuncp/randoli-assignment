@@ -32,5 +32,18 @@ A Kubernetes cluster must be setup and kubectl must be configured with it.
 2. Change directory to `devops`.
 3. Run `deploy.sh` script.
 
-#### API URL: `http://<kubernetes cluster IP>:30080/api`
-#### Swagger URL: `http://<kubernetes cluster IP>:30080/swagger-ui`
+#### API URL: `http://<kubernetes service external IP>/api`
+#### Swagger URL: `http://<kubernetes service external IP>/swagger-ui`
+
+## 3Scale API
+
+The latest API is already deployed in a test Kubernetes cluster and can be accessible as follows.
+
+- Staging base URL: `https://api-2445583412695.staging.gw.apicast.io:443/api`
+- An API key must be supplied though the `x-api-key` header.
+
+#### Sample curl command
+`
+curl "https://api-2445583412695.staging.gw.apicast.io:443/api/events" -H 'x-api-key: <API_KEY>'
+`
+
