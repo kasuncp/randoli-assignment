@@ -15,6 +15,7 @@ spec:
       containers:
         - name: randoli-event-api
           image: kasper360/randoli:latest
+          imagePullPolicy: Always
 ---
 apiVersion: apps/v1
 kind: Deployment

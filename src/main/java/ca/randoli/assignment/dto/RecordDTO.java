@@ -3,15 +3,16 @@ package ca.randoli.assignment.dto;
 import java.util.List;
 
 public class RecordDTO {
+
     private String transId;
     private String transTms;
     private String rcNum;
     private String clientId;
-    private List<EventDTO> event;
+    private List<PartialEventDTO> event;
 
     public RecordDTO() { }
 
-    public RecordDTO(String transId, String transTms, String rcNum, String clientId, List<EventDTO> event) {
+    public RecordDTO(String transId, String transTms, String rcNum, String clientId, List<PartialEventDTO> event) {
         this.transId = transId;
         this.transTms = transTms;
         this.rcNum = rcNum;
@@ -51,11 +52,12 @@ public class RecordDTO {
         this.clientId = clientId;
     }
 
-    public List<EventDTO> getEvent() {
+    public List<PartialEventDTO> getEvent() {
         return event;
     }
 
-    public void setEvent(List<EventDTO> event) {
+    public void setEvent(List<PartialEventDTO> event) {
         this.event = event;
     }
+
 }

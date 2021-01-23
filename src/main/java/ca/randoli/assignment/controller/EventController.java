@@ -1,5 +1,6 @@
 package ca.randoli.assignment.controller;
 
+import ca.randoli.assignment.dto.BatchRecordDTO;
 import ca.randoli.assignment.dto.EventDTO;
 import ca.randoli.assignment.model.Event;
 import ca.randoli.assignment.response.GenericResponse;
@@ -16,9 +17,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 
 @Component
@@ -155,6 +153,11 @@ public class EventController extends RouteBuilder {
                 // POST /api/records
                 .post("/")
                     .description("Create events from records")
+                    .type(BatchRecordDTO.class)
+                    .responseMessage()
+                        .code(202)
+                        .responseModel(GenericResponse.class)
+                    .endResponseMessage()
                 .route()
                 .to("direct:processEvents")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(202))
